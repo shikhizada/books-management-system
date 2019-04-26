@@ -55,12 +55,6 @@ public class InventoryRestController {
         return new ResponseEntity<>(deletedBookDTO, new HttpHeaders(), HttpStatus.OK);
     }
 
-    @GetMapping("/books/{id}/comments")
-    public List<CommentDTO> getComments(@PathVariable Long id) {
-
-        return inventoryService.getComments(id);
-    }
-
     @PostMapping(path = "/books/{id}/comments")
     public ResponseEntity<CommentDTO> addComment(@PathVariable Long id, @RequestBody CommentDTO commentDTO) {
 

@@ -21,6 +21,7 @@ public class BookAssembler extends ResourceAssemblerSupport<Book, BookDTO> {
         BookDTO bookDTO = new BookDTO();
         bookDTO.set_id(book.getId());
         bookDTO.setAuthor(book.getAuthor());
+        bookDTO.setComments(book.getComments());
         bookDTO.setIsbn(book.getIsbn());
         bookDTO.setTitle(book.getTitle());
 

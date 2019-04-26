@@ -15,4 +15,7 @@ public class Book {
     String title;
     String author;
     String isbn;
+
+    @OneToMany(cascade = CascadeType.ALL)
+    List<Comment> comments;
 }

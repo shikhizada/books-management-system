@@ -15,7 +15,4 @@ public class Comment {
 
     LocalDate postDate;
     String content;
-
-    @ManyToOne
-    Book book;
 }

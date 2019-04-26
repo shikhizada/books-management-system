@@ -20,7 +20,6 @@ public class CommentAssembler extends ResourceAssemblerSupport<Comment, CommentD
 
         CommentDTO commentDTO = new CommentDTO();
         commentDTO.set_id(comment.getId());
-        commentDTO.setBook(comment.getBook());
         commentDTO.setContent(comment.getContent());
         commentDTO.setPostDate(comment.getPostDate());
 

@@ -5,7 +5,6 @@ import com.bms.inventory.application.dto.CommentDTO;
 import com.bms.inventory.domain.model.Book;
 import com.bms.inventory.domain.model.Comment;
 import com.bms.inventory.domain.repository.BookRepository;
-import com.bms.inventory.domain.repository.CommentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,9 +15,6 @@ public class InventoryService {
 
     @Autowired
     BookRepository bookRepository;
-
-    @Autowired
-    CommentRepository commentRepository;
 
     @Autowired
     BookAssembler bookAssembler;
@@ -78,19 +74,13 @@ public class InventoryService {
         Book book = bookRepository.findById(bookId).orElse(null);
 
         Comment comment = new Comment();
-        comment.setBook(book);
         comment.setContent(commentDTO.getContent());
         comment.setPostDate(commentDTO.getPostDate());
 
-        commentRepository.save(comment);
+        book.getComments().add(comment);
+
+        bookRepository.save(book);
 
         return commentAssembler.toResource(comment);
-    }
-
-    public List<CommentDTO> getComments(Long bookId) {
-
-        List<Comment> comments = commentRepository.findAllByBookId(bookId);
-
-        return commentAssembler.toResources(comments);
     }
 }
