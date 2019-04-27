@@ -29,7 +29,6 @@
       </tbody>
     </table>
     <a href="/books/add" class="col-md-2 offset-md-10 btn btn-primary">Add book</a>
-
     <ul v-if="totalPages > 0" class="pagination justify-content-center">
       <li v-bind:class="{'page-item':true, 'disabled':(currentPage === 0)}">
         <a v-on:click="getBooks(0)" class="page-link" href="#"><font-awesome-icon icon="angle-double-left" /></a>
@@ -51,7 +50,7 @@
 </template>
 
 <script>
-import axios from "axios";
+import axios from "axios"
 
 export default {
   name: 'books',
@@ -70,29 +69,29 @@ export default {
     getBooks: function(page) {
       axios.get("http://localhost:8080/api/inventory/books?page=" + page + "&limit=" + this.limit)
         .then(response => {
-          console.log(response);
-          this.books = response.data.elements;
+          console.log(response)
+          this.books = response.data.elements
           this.totalPages = response.data.totalPages
           this.currentPage = response.data.page
         })
         .catch(e => {
-          console.log(e);
-        });
+          console.log(e)
+        })
     },
     deleteBook: function(id) {
       axios.delete("http://localhost:8080/api/inventory/books/" + id)
         .then(response => {
-          console.log(response);
-          alert("Book with the name " + response.data.title + " was removed");
-          this.$router.go();
+          console.log(response)
+          alert("Book with the name " + response.data.title + " was removed")
+          this.$router.go()
         })
         .catch(e => {
-          console.log(e);
-        });
+          console.log(e)
+        })
     }
   },
   mounted: function() {
-    this.getBooks(0);
+    this.getBooks(0)
   }
 }
 </script>

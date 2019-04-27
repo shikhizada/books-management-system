@@ -3,6 +3,8 @@
     <div class="row">
       <div class="col-md-5">
         <br>
+        <a href="/">Back</a>
+        <br>
         <h1>Edit book</h1>
         <br>
         <div class="row">
@@ -21,10 +23,8 @@
           <button type="button" v-on:click="updateBook" class="col-md-4 offset-md-8 btn btn-primary">Update</button>
         </div>
       </div>
-
       <div class="col-md-2">
       </div>
-
       <div class="col-md-5">
         <br>
         <h1>Comments</h1>
@@ -52,7 +52,7 @@
 </template>
 
 <script>
-import axios from "axios";
+import axios from "axios"
 
 export default {
   name: 'book-edit',
@@ -69,44 +69,46 @@ export default {
     }
   },
   methods: {
+    getBook: function() {
+      axios.get("http://localhost:8080/api/inventory/books/" + this.$route.params.id)
+        .then(response => {
+          console.log(response)
+          this.book = response.data
+        })
+        .catch(e => {
+          console.log(e)
+        })
+    },
     updateBook: function() {
       axios.put("http://localhost:8080/api/inventory/books/" + this.book._id, this.book)
         .then(response => {
-          console.log(response);
+          console.log(response)
           alert("Successfully updated")
-          this.$router.push('/')
         })
         .catch(e => {
-          console.log(e);
-        });
+          console.log(e)
+        })
     },
     addComment: function() {
       axios.post("http://localhost:8080/api/inventory/books/" + this.book._id + "/comments", this.newComment)
         .then(response => {
-          this.$router.go("/books/" + this.$route.params.id);
+          this.getBook()
         })
         .catch(e => {
-          console.log(e);
-        });
+          console.log(e)
+        })
     },
     getDate: function() {
-      var date = new Date();
-      var yyyy = date.getFullYear();
-      var mm = String(date.getMonth() + 1).padStart(2, '0');
-      var dd = String(date.getDate()).padStart(2, '0');
-      date = yyyy + '-' + mm + '-' + dd;
-      return date;
+      var date = new Date()
+      var yyyy = date.getFullYear()
+      var mm = String(date.getMonth() + 1).padStart(2, '0')
+      var dd = String(date.getDate()).padStart(2, '0')
+      date = yyyy + '-' + mm + '-' + dd
+      return date
     }
   },
   mounted: function() {
-    axios.get("http://localhost:8080/api/inventory/books/" + this.$route.params.id)
-      .then(response => {
-        console.log(response);
-        this.book = response.data;
-      })
-      .catch(e => {
-        console.log(e);
-      });
+    this.getBook()
   }
 }
 </script>

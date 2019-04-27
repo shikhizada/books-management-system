@@ -3,6 +3,8 @@
     <div class="row">
       <div class="col-md-6">
         <br>
+        <a href="/">Back</a>
+        <br>
         <h1>Add book</h1>
         <br>
         <div class="row">
@@ -26,7 +28,7 @@
 </template>
 
 <script>
-import axios from "axios";
+import axios from "axios"
 
 export default {
   name: 'book-add',
@@ -46,13 +48,15 @@ export default {
     addBook: function() {
       axios.post("http://localhost:8080/api/inventory/books", this.book)
         .then(response => {
-          console.log(response);
+          console.log(response)
           alert("Successfully added")
-          this.$router.push('/')
+          this.book.title = ""
+          this.book.author = ""
+          this.book.isbn = ""
         })
         .catch(e => {
-          console.log(e);
-        });
+          console.log(e)
+        })
       }
   }
 }
