@@ -70,7 +70,7 @@ export default {
   },
   methods: {
     getBook: function() {
-      axios.get("http://localhost:8080/api/inventory/books/" + this.$route.params.id)
+      axios.get("http://localhost:8090/api/inventory/books/" + this.$route.params.id)
         .then(response => {
           console.log(response)
           this.book = response.data
@@ -80,7 +80,7 @@ export default {
         })
     },
     updateBook: function() {
-      axios.put("http://localhost:8080/api/inventory/books/" + this.book._id, this.book)
+      axios.put("http://localhost:8090/api/inventory/books/" + this.book._id, this.book)
         .then(response => {
           console.log(response)
           alert("Successfully updated")
@@ -90,7 +90,7 @@ export default {
         })
     },
     addComment: function() {
-      axios.post("http://localhost:8080/api/inventory/books/" + this.book._id + "/comments", this.newComment)
+      axios.post("http://localhost:8090/api/inventory/books/" + this.book._id + "/comments", this.newComment)
         .then(response => {
           this.getBook()
         })

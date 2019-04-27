@@ -46,7 +46,7 @@ export default {
   },
   methods: {
     addBook: function() {
-      axios.post("http://localhost:8080/api/inventory/books", this.book)
+      axios.post("http://localhost:8090/api/inventory/books", this.book)
         .then(response => {
           console.log(response)
           alert("Successfully added")

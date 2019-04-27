@@ -67,7 +67,7 @@ export default {
   },
   methods: {
     getBooks: function(page) {
-      axios.get("http://localhost:8080/api/inventory/books?page=" + page + "&limit=" + this.limit)
+      axios.get("http://localhost:8090/api/inventory/books?page=" + page + "&limit=" + this.limit)
         .then(response => {
           console.log(response)
           this.books = response.data.elements
@@ -79,7 +79,7 @@ export default {
         })
     },
     deleteBook: function(id) {
-      axios.delete("http://localhost:8080/api/inventory/books/" + id)
+      axios.delete("http://localhost:8090/api/inventory/books/" + id)
         .then(response => {
           console.log(response)
           alert("Book with the name " + response.data.title + " was removed")
