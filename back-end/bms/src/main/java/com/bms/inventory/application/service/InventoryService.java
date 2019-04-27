@@ -2,13 +2,14 @@ package com.bms.inventory.application.service;
 
 import com.bms.inventory.application.dto.BookDTO;
 import com.bms.inventory.application.dto.CommentDTO;
+import com.bms.inventory.application.dto.PageDTO;
 import com.bms.inventory.domain.model.Book;
 import com.bms.inventory.domain.model.Comment;
 import com.bms.inventory.domain.repository.BookRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 @Service
 public class InventoryService {
@@ -29,11 +30,18 @@ public class InventoryService {
         return bookAssembler.toResource(book);
     }
 
-    public List<BookDTO> getBooks() {
+    public PageDTO<BookDTO> getBooks(int page, int limit) {
 
-        List<Book> books = bookRepository.findAll();
+        Page<Book> books = bookRepository.findAll(PageRequest.of(page, limit));
 
-        return bookAssembler.toResources(books);
+        PageDTO<BookDTO> pageDTO = new PageDTO<>();
+        pageDTO.setElements(bookAssembler.toResources(books));
+        pageDTO.setLimit(limit);
+        pageDTO.setPage(page);
+        pageDTO.setTotalElements(books.getTotalElements());
+        pageDTO.setTotalPages(books.getTotalPages());
+
+        return pageDTO;
     }
 
     public BookDTO addBook(BookDTO bookDTO) {
